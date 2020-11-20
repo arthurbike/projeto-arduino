@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket client</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.js"
+      integrity="sha512-vGcPDqyonHb0c11UofnOKdSAt5zYRpKI4ow+v6hat4i96b7nHSn8PQyk0sT5L9RECyksp+SztCPP6bqeeGaRKg=="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <button id="toogle_led">Toogle led</button>
+    <script type="text/javascript">
+      const socket = io();
+
+      const body = document.querySelector("body");
+
+      socket.on("connected", (data) => {
+        const h1 = document.createElement("h1");
+        h1.innerText = data;
+        body.appendChild(h1);
+      });
+
+      socket.on("message", (data) => {
+        const h1 = document.createElement("h1");
+        h1.innerText = data;
+        body.appendChild(h1);
+      });
+
+      socket.on("newClient", (client) => {
+        const h1 = document.createElement("h1");
+        h1.innerText = client;
+        body.appendChild(h1);
+      });
+
+      const button = document.querySelector("#toogle_led");
+      button.onclick = () => socket.emit("toogleLed", true);
+      button.onsubmit = () => socket.emit("toogleLed", true);
+    </script>
+  </body>
+</html>

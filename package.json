@@ -1,0 +1,32 @@
+{
+  "name": "projeto-arduino",
+  "version": "1.0.0",
+  "description": "Projeto para disciplina de Embarcados, desenvolvido com node, utilizando a biblioteca jhony-five para comunicação do node com o arduíno, e web-socket para interação a partir de uma interface gráfica",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurbike/projeto-arduino.git"
+  },
+  "author": "arthurbike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arthurbike/projeto-arduino/issues"
+  },
+  "homepage": "https://github.com/arthurbike/projeto-arduino#readme",
+  "keywords": [],
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "johnny-five": "^2.0.0",
+    "serialport": "^9.0.2",
+    "socket.io": "^3.0.2"
+  }
+}
