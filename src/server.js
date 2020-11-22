@@ -1,15 +1,16 @@
 require("dotenv").config();
 
-const SERVER_PORT = process.env.SERVER_PORT;
-const MAX_CLIENTS_COUNT = 2;
-let clients = [];
-let clientId = "";
-
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const five = require("johnny-five");
 const board = new five.Board({ port: "/dev/ttyUSB0", repl: false });
+
+const SERVER_PORT = process.env.SERVER_PORT;
+const MAX_CLIENTS_COUNT = 2;
+
+let clients = [];
+let clientId = "";
 
 const app = express();
 
@@ -42,13 +43,18 @@ app.all("*", (req, res) => res.status(404).send({ message: "Not Found" }));
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 
+const removeClient = (client) =>
+  (clients = clients.filter((x) => clients[client]));
+
 io.on("connection", (socket) => {
   clientId = socket.id;
   clients.push(clientId);
   io.sockets.emit("newClient", clientId);
 
   socket.on("disconnect", () => {
-    console.log(`CLIENT DISCONNECTED: ${clientId}`);
+    removeClient(clientId);
+    console.log(`CLIENT DISCONNECTED: ${clientId}
+    List of clients: [${clients}];`);
     io.sockets.emit("message", `CLIENT DISCONNECTED: ${clientId}`);
   });
 
